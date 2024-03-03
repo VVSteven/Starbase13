@@ -1,8 +1,10 @@
 // imports the character class to create a character and use the methods form the class
 
-import classes.Character;
+import classes.ChoiceSelector;
+import classes.character.Character;
 // imports the stats class to be able to update and keep track of the character's stats
-import classes.Stats;
+import classes.character.CharacterInfo;
+import classes.character.level.CharacterStats;
 import classes.Lifeform;
 import classes.Spaceship;
 // imports the user interface from the screen folder using "*" symbol (which means all)
@@ -13,12 +15,15 @@ import screen.*;
 public class Main {
     //public means that this can be called from anywhere
     public static void main(String[] args) {
+        CharacterInfo characterInfo = new CharacterInfo(" "," ", " "," ");
         // creates the stats at the start to be used throughout.
-        Stats stats = new Stats(100, 70, 60, 70, 30);
+        CharacterStats characterStats = new CharacterStats(1);
         //Creates a new character taking in empty parameters as of now but will be updated later
-        Character character = new Character(" ", " ", " ", " ", " ", stats);
+        Character mainCharacter = new Character(characterInfo, characterStats);
+        // Create a ChoiceSelector
+        ChoiceSelector choiceSelector = new ChoiceSelector();
         //Passing in the character to the user interface to only work on character that was just created
-        UserInterface ui = new UserInterface(character);
+        UserInterface ui = new UserInterface(mainCharacter, choiceSelector);
         //creates ships with different descriptions / characteristics
         Spaceship ship1 = new Spaceship("Small cargo ship with blue stripes and yellow flames.");
         Spaceship ship2 = new Spaceship("An absolute speed demon with rockets everywhere");
@@ -33,6 +38,7 @@ public class Main {
         Lifeform alien3 = new Lifeform("Huge body but small eye");
         Lifeform alien4 = new Lifeform("Looks human");
 
+        ui.displayStats();
         //displays intro text
         ui.displayIntro();
         //displays arrival text sends ship as the expected spaceship
@@ -40,14 +46,13 @@ public class Main {
         //Display User's Name and sends Quibberwibberdoodlepoop as the expected life form
         ui.displayName(Quibberwibberdoodlepoop);
         //Display Home Planet
-        ui.displayHomePlanet(character.getUserName());
+        ui.displayHomePlanet(characterInfo.getUserName());
         //Display Skill
         ui.displaySkill();
         //Prints out all the things the user inputted.
-        ui.displayCharacterInfo(character.getUserName(), character.getHomePlanet(), character.getSpecialSkill());
+        ui.displayCharacterInfo(characterInfo.getUserName(), characterInfo.getHomePlanet(), characterInfo.getSpecialSkill());
         //deplete health from the bonk to the head
-        character.getStats().setHealth(50);
-        //gives time to read
+        //gives the user time to read
         ui.waitForResponse();
         //display current stats
         ui.displayStats();

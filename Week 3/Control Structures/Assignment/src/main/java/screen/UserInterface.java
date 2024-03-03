@@ -1,34 +1,39 @@
 package screen;
 
-import classes.Character;
+import classes.ChoiceSelector;
+import classes.character.Character;
 import classes.Lifeform;
 import classes.Spaceship;
-import classes.Stats;
+import classes.character.CharacterInfo;
+import classes.character.level.CharacterStats;
 
 import java.util.Scanner;
 
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
     Character character;
+    CharacterInfo characterInfo;
     Spaceship spaceship;
     Lifeform lifeform;
+    ChoiceSelector choiceSelector;
 
-    public UserInterface(Character character) {
+    public UserInterface(Character character , ChoiceSelector choiceSelector) {
         this.character = character;
+        this.choiceSelector = choiceSelector;
     }
-    // function to call to display the stats of the user at any moment
+    // function to call to display the stats of the user
     public void displayStats() {
-        //gets the stats for the character and stores it in the stats variable
-        Stats stats = character.getStats();
-        //display the stats by getting them from the stats class and calling the methods
+        CharacterStats characterStats = character.getStats();
+        // Display the stats
         System.out.println("Stats");
         System.out.println("========================");
-        System.out.println("Health: " + stats.getHealth());
-        System.out.println("Strength: " + stats.getStrength());
-        System.out.println("Intelligence: " + stats.getIntelligence());
-        System.out.println("Speed: " + stats.getSpeed());
-        System.out.println("Luck: " + stats.getLuck());
-
+        System.out.println("Rank: " + characterStats.getRank());
+        System.out.println("Health: " + characterStats.getTotalHealth());
+        System.out.println("Strength: " + characterStats.getTotalStrength());
+        System.out.println("Defense: " + characterStats.getTotalDefense());
+        System.out.println("Speed: " + characterStats.getTotalSpeed());
+        System.out.println("Accuracy: " + characterStats.getTotalAccuracy());
+        System.out.println("Stamina: " + characterStats.getTotalStamina());
     }
     //function to give the user time to read
     public void waitForResponse(){
@@ -49,9 +54,10 @@ public class UserInterface {
         System.out.println("There are millions of planets so your home can be saved.");
         //created a space in the terminal
         System.out.println();
+        waitForResponse();
     }
     public void displayArrival(Spaceship spaceship, Lifeform lifeform1, Lifeform lifeform2,Lifeform lifeform3,Lifeform lifeform4){
-        System.out.println("You arrived in a spaceship that is " + spaceship.getDescription());
+        System.out.println("You arrive in a spaceship that is " + spaceship.getDescription());
         System.out.println("As you walk around you see strange things");
         System.out.println("You see aliens that have different attributes");
         System.out.println("Thinking: That one has " + lifeform1.getDescription());
@@ -69,7 +75,7 @@ public class UserInterface {
         //Gets the user's name and holds it in the userName string
         String userName = scanner.nextLine();
         //sets the character's name using the userName variable
-        character.setUserName(userName);
+        characterInfo.setUserName(userName);
         //print out the user's name
         System.out.println("Quibberwibberdoodlepoop: Hey " + userName + ", My name is Quibberwibberdoodlepoop");
         System.out.println("Quibberwibberdoodlepoop: But you can call me, Shorts");
@@ -83,7 +89,7 @@ public class UserInterface {
         //Gets the user's home planet and holds it in the homePlanet string
         String homePlanet = scanner.nextLine();
         //sets the character's home planet using the homePlanet variable
-        character.setHomePlanet(homePlanet);
+        characterInfo.setHomePlanet(homePlanet);
 
         //Prints the user's home planet
         System.out.println("Quibberwibberdoodlepoop: Oh ok, I've heard of " + homePlanet + " before.");
@@ -91,11 +97,11 @@ public class UserInterface {
 
     //function to display text to set the user's special skill
     public void displaySkill() {
-        System.out.print("Quibberwibberdoodlepoop: And by the way, what is your special skill? ");
-        //Gets the user's special skill holds it in the specialSkill string
-        String specialSkill = scanner.nextLine();
+        System.out.println("Quibberwibberdoodlepoop: And by the way, what is your special skill? ");
+        //Gets the user's special skill by calling a switch in the ChoiceSelector and holds it in the specialSkill string
+        String specialSkill = choiceSelector.specialSkillSelector();
         //sets the character's special skill using the specialSkill variable
-        character.setSpecialSkill(specialSkill);
+        characterInfo.setSpecialSkill(specialSkill);
 
     }
     //function to display all user's current info taking in the user's name, planet ,and skill.
@@ -105,7 +111,6 @@ public class UserInterface {
 
         System.out.println();
         System.out.println("**You are knocked out from behind**");
-        System.out.println();
     }
     //function to continue the story
     public void continuePart1(Spaceship spaceship1,Spaceship spaceship2,Spaceship spaceship3,Spaceship spaceship4) {
