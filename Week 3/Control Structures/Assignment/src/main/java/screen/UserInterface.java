@@ -1,6 +1,6 @@
 package screen;
 
-import classes.ChoiceSelector;
+import classes.BoxingRing;
 import classes.character.Character;
 import classes.Lifeform;
 import classes.Spaceship;
@@ -14,6 +14,7 @@ public class UserInterface {
     Character character;
     CharacterInfo characterInfo;
     Spaceship spaceship;
+    BoxingRing boxingRing;
     Lifeform lifeform;
     ChoiceSelector choiceSelector;
 
@@ -56,14 +57,9 @@ public class UserInterface {
         System.out.println();
         waitForResponse();
     }
-    public void displayArrival(Spaceship spaceship, Lifeform lifeform1, Lifeform lifeform2,Lifeform lifeform3,Lifeform lifeform4){
+    public void displayArrival(Spaceship spaceship){
         System.out.println("You arrive in a spaceship that is " + spaceship.getDescription());
         System.out.println("As you walk around you see strange things");
-        System.out.println("You see aliens that have different attributes");
-        System.out.println("Thinking: That one has " + lifeform1.getDescription());
-        System.out.println("Thinking: That one is " + lifeform2.getDescription());
-        System.out.println("Thinking: That one has a " + lifeform3.getDescription());
-        System.out.println("Thinking: That one " + lifeform4.getDescription());
         waitForResponse();
     }
     //function to display text to set the user's name and passes in the life form of Quibberwibberdoodlepoop
@@ -75,7 +71,7 @@ public class UserInterface {
         //Gets the user's name and holds it in the userName string
         String userName = scanner.nextLine();
         //sets the character's name using the userName variable
-        characterInfo.setUserName(userName);
+        character.getInfo().setUserName(userName);
         //print out the user's name
         System.out.println("Quibberwibberdoodlepoop: Hey " + userName + ", My name is Quibberwibberdoodlepoop");
         System.out.println("Quibberwibberdoodlepoop: But you can call me, Shorts");
@@ -89,7 +85,7 @@ public class UserInterface {
         //Gets the user's home planet and holds it in the homePlanet string
         String homePlanet = scanner.nextLine();
         //sets the character's home planet using the homePlanet variable
-        characterInfo.setHomePlanet(homePlanet);
+        character.getInfo().setHomePlanet(homePlanet);
 
         //Prints the user's home planet
         System.out.println("Quibberwibberdoodlepoop: Oh ok, I've heard of " + homePlanet + " before.");
@@ -101,7 +97,7 @@ public class UserInterface {
         //Gets the user's special skill by calling a switch in the ChoiceSelector and holds it in the specialSkill string
         String specialSkill = choiceSelector.specialSkillSelector();
         //sets the character's special skill using the specialSkill variable
-        characterInfo.setSpecialSkill(specialSkill);
+        character.getInfo().setSpecialSkill(specialSkill);
 
     }
     //function to display all user's current info taking in the user's name, planet ,and skill.
@@ -129,5 +125,80 @@ public class UserInterface {
         System.out.println("Quibberwibberdoodlepoop: Finally!!!");
         System.out.println("Quibberwibberdoodlepoop: You were asleep for weeks!");
         System.out.println("**You go back to sleep**");
+    }
+    public void continuePart2(){
+        System.out.println();
+        System.out.println("**You're waking up in a warehouse again but now drenched in water**");
+        System.out.println("Quibberwibberdoodlepoop: Now that you are awake.");
+        System.out.println("Quibberwibberdoodlepoop: I will tell you what I am planing.");
+        System.out.println("Quibberwibberdoodlepoop: I am going to coach and you will now fight for me.");
+        System.out.println("Quibberwibberdoodlepoop: Do you agree?");
+        String response = choiceSelector.joinQuibberwibberdoodlepoop();
+        System.out.println("Quibberwibberdoodlepoop: " + response);
+        waitForResponse();
+    }
+    public void enterQuibberwibberdoodlepoopDoor(){
+        System.out.println();
+        System.out.println("Quibberwibberdoodlepoop: oh yea lets see if you have good memory");
+        System.out.println("Quibberwibberdoodlepoop: Unlock the door to my room");
+        choiceSelector.unlockDoor();
+        System.out.println("Quibberwibberdoodlepoop: Alright you got lets go");
+        waitForResponse();
+    }
+    public void fightQuibberwibberdoodlepoop(BoxingRing quibberwibberdoodlepoopRoom){
+        System.out.println("**Quibberwibberdoodlepoop takes you to a room**");
+        System.out.println("**" + quibberwibberdoodlepoopRoom.getDescription() + "**");
+        System.out.println("Quibberwibberdoodlepoop: Lets fight");
+        System.out.println(character.getInfo().getUserName() + ": Lets fight");
+        System.out.println("**Quibberwibberdoodlepoop beats you up and there is no way you could have one**");
+        waitForResponse();
+    }
+    public void fightOpponent1(Lifeform lifeform,BoxingRing room1){
+        System.out.println("**Quibberwibberdoodlepoop helps you up**");
+        System.out.println("Quibberwibberdoodlepoop: To begin your training we must fight other opponents");
+        System.out.println(character.getInfo().getUserName() +": Ok lets begin");
+        System.out.println("**You Enter a new room**");
+        System.out.println("**" + room1.getDescription() + "**");
+        System.out.println(lifeform.getName() + ": Lets fight");
+        System.out.println(character.getInfo().getUserName() + ": Lets fight");
+        System.out.println("**You exchange blows fiercely, but in the end, you emerge victorious! against "+lifeform.getName()+"**");
+        System.out.println("Quibberwibberdoodlepoop: Wow, good job I knew you could win");
+        waitForResponse();
+    }
+
+    public void fightOpponent2(Lifeform lifeform,BoxingRing room2){
+        System.out.println("**Quibberwibberdoodlepoop takes you to a room**");
+        System.out.println("**" + room2.getDescription() + "**");
+        System.out.println("Quibberwibberdoodlepoop: These next fights are going to be a bit tougher");
+        System.out.println(lifeform.getName()+": Lets fight");
+        System.out.println(character.getInfo().getUserName() + ": Lets fight");
+        System.out.println("**You struggle against your opponent's might, but your determination prevails, and you win against "+lifeform.getName()+"**");
+        waitForResponse();
+
+    }
+
+    public void fightOpponent3(Lifeform lifeform,BoxingRing room3){
+        System.out.println("**Quibberwibberdoodlepoop takes you new room to a room**");
+        System.out.println("**" + room3.getDescription() + "**");
+        System.out.println(lifeform.getName() + ": Lets fight");
+        System.out.println(character.getInfo().getUserName() + ": Lets fight");
+        System.out.println("**Despite the odds, you manage to out punch " + lifeform.getName()+ " and claim victory!**");
+        waitForResponse();
+
+    }
+
+    public void fightOpponent4(Lifeform lifeform,BoxingRing room4){
+        System.out.println("**Quibberwibberdoodlepoop takes to the final fight room**");
+        System.out.println("**" + room4.getDescription() + "**");
+        System.out.println(lifeform.getName() + ": Lets fight");
+        System.out.println(character.getInfo().getUserName() + ": Lets fight");
+        System.out.println("**You face your opponent head-on, and with skill and determination, emerge as the winner!**");
+        waitForResponse();
+
+    }
+    public void continuePart3(){
+        System.out.println("Quibberwibberdoodlepoop: Good job beating those guys");
+        System.out.println("Quibberwibberdoodlepoop: Now go rest");
+        System.out.println("**You go back to the chair and sleep**");
     }
 }

@@ -1,6 +1,7 @@
 // imports the character class to create a character and use the methods form the class
 
-import classes.ChoiceSelector;
+import classes.BoxingRing;
+import screen.ChoiceSelector;
 import classes.character.Character;
 // imports the stats class to be able to update and keep track of the character's stats
 import classes.character.CharacterInfo;
@@ -30,19 +31,29 @@ public class Main {
         Spaceship ship3 = new Spaceship("Looks like the Millennium Falcon but tiny");
         Spaceship ship4 = new Spaceship("Can turn invisible and is super slow");
         Spaceship ship5 = new Spaceship("in the shape of a donut");
-        //creates alien with different descriptions / characteristics
-        //A special "alien"
-        Lifeform Quibberwibberdoodlepoop = new Lifeform("Looks like Squidward");
-        Lifeform alien1 = new Lifeform("Huge eye but small body");
-        Lifeform alien2 = new Lifeform("Spikey and slimey");
-        Lifeform alien3 = new Lifeform("Huge body but small eye");
-        Lifeform alien4 = new Lifeform("Looks human");
 
-        ui.displayStats();
+        //creates alien with different ranks and description
+        CharacterStats opponentRank1 = new CharacterStats(1);
+        CharacterStats opponentRank2 = new CharacterStats(2);
+        CharacterStats opponentRank3 = new CharacterStats(3);
+        CharacterStats opponentRank10 = new CharacterStats(10);
+
+        Lifeform Quibberwibberdoodlepoop = new Lifeform("Quibberwibberdoodlepoop",opponentRank10,"Looks like Squidward");
+        Lifeform Ragnor = new Lifeform("Ragnor the Crusher",opponentRank1,"Huge eye but small body");
+        Lifeform Kraxus = new Lifeform("Kraxus Thunderfist",opponentRank2,"Spikey and slimey");
+        Lifeform Vexor = new Lifeform("Vexor the Vanquisher",opponentRank3,"Huge body but small eye");
+        Lifeform Skorn = new Lifeform("Skorn the Savage",opponentRank3,"Looks human");
+
+        BoxingRing quibberwibberdoodlepoopRoom = new BoxingRing(mainCharacter, Quibberwibberdoodlepoop, "A dimly lit room, awaits your presence");
+        BoxingRing room1 = new BoxingRing(mainCharacter, Ragnor, "Empty ring with just nothing special.");
+        BoxingRing room2 = new BoxingRing(mainCharacter, Kraxus, "A brightly illuminated ring with a roaring crowd cheering from the stands.");
+        BoxingRing room3 = new BoxingRing(mainCharacter, Vexor, "A small, intimate ring tucked away in the corner of the gym.");
+        BoxingRing room4 = new BoxingRing(mainCharacter, Skorn, "An expansive, state-of-the-art ring equipped with high-tech training equipment.");
+
         //displays intro text
         ui.displayIntro();
         //displays arrival text sends ship as the expected spaceship
-        ui.displayArrival(ship5, alien1,alien2,alien3,alien4);
+        ui.displayArrival(ship5);
         //Display User's Name and sends Quibberwibberdoodlepoop as the expected life form
         ui.displayName(Quibberwibberdoodlepoop);
         //Display Home Planet
@@ -58,5 +69,13 @@ public class Main {
         ui.displayStats();
         //continues the story and takes in the ships 1-4 to display
         ui.continuePart1(ship1,ship2,ship3,ship4);
+        ui.continuePart2();
+        ui.enterQuibberwibberdoodlepoopDoor();
+        ui.fightQuibberwibberdoodlepoop(quibberwibberdoodlepoopRoom);
+        ui.fightOpponent1(Ragnor,room1);
+        ui.fightOpponent2(Kraxus,room2);
+        ui.fightOpponent3(Vexor,room3);
+        ui.fightOpponent4(Skorn,room4);
+        ui.continuePart3();
     }
 }
